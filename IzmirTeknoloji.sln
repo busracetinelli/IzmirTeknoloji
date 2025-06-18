@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36109.1 d17.14
+VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IzmirTeknoloji.Domain", "IzmirTeknoloji.Domain\IzmirTeknoloji.Domain.csproj", "{648F94EF-3039-475F-9012-16E9BCC175A3}"
 EndProject
@@ -10,6 +10,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IzmirTeknoloji.Infrastructure", "IzmirTeknoloji.Infrastructure\IzmirTeknoloji.Infrastructure.csproj", "{968C3F04-D391-4BD3-B663-90FFEBBE418F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IzmirTeknoloji.API", "IzmirTeknoloji.API\IzmirTeknoloji.API.csproj", "{B91E0F0D-7377-407A-9B9E-0B8726372622}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PostgreBackup", "PostgreBackup", "{DC778250-F5BC-44B1-94F4-864318F86976}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\Administrator\Desktop\PostgreBackup\IzmirTeknolojiDb.sql = C:\Users\Administrator\Desktop\PostgreBackup\IzmirTeknolojiDb.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +43,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DC778250-F5BC-44B1-94F4-864318F86976} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {556C69D7-517C-4EC5-AA0E-B9002B6D6B19}
