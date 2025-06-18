@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IzmirTeknoloji.Application.Interfaces;
+﻿using IzmirTeknoloji.Application.Interfaces;
 using IzmirTeknoloji.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -26,8 +21,8 @@ namespace IzmirTeknoloji.Application.Features.Users.Commands.CreateUser
             var user = new User
             {
                 Id = Guid.NewGuid(),
-                UserName = request.UserName,
-                Role = request.Role
+                Email = request.Email,
+                RoleId = request.RoleId
             };
 
             user.PasswordHash = _passwordHasher.HashPassword(user, request.Password);

@@ -1,11 +1,22 @@
+using System.Text;
 using IzmirTeknoloji.Application.Interfaces;
+using IzmirTeknoloji.Application.Interfaces.Repositories;
+using IzmirTeknoloji.Domain.Entities;
 using IzmirTeknoloji.Infrastructure.Persistence;
+using IzmirTeknoloji.Infrastructure.Services;
+using IzmirTeknoloji.Persistence.Repositories;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// DbContext with PostgreSQL
+builder.Services.AddHttpContextAccessor();
+
+
+// PostgreSQL + DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -13,37 +24,56 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IApplicationDbContext>(provider =>
     provider.GetService<ApplicationDbContext>());
 
+// Identity password hasher
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>(); 
+
+// JWT Service
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+
+// JWT Authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
+            )
+        };
+    });
+
 // MediatR
 builder.Services.AddMediatR(typeof(IzmirTeknoloji.Application.AssemblyReference).Assembly);
 
-// Swagger 
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// PostgreSQL
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-// Add services to the container.
-
+// Controllers
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Development ortamýnda Swagger aktif
 if (app.Environment.IsDevelopment())
 {
-    // Swagger middleware
     app.UseSwagger();
     app.UseSwaggerUI();
-
     app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllers();

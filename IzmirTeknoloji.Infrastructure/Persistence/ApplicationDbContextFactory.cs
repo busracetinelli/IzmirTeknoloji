@@ -10,7 +10,7 @@ namespace IzmirTeknoloji.Infrastructure.Persistence
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory()) // Ensure Directory is accessible
+                .SetBasePath(Directory.GetCurrentDirectory()) 
                 .AddJsonFile("appsettings.Development.json")
                 .Build();
 
