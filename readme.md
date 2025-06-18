@@ -90,7 +90,6 @@ Bu yapı sayesinde her iş mantığı işlemi (kayıt ekleme, güncelleme, liste
 
 - `MediatR` – Handler altyapısı
 - `FluentValidation` – Request doğrulama
-- `AutoMapper` – DTO-Entity dönüşümleri
 - `JWT` – Token üretimi
 
 ---
@@ -102,7 +101,6 @@ Bu yapı sayesinde her iş mantığı işlemi (kayıt ekleme, güncelleme, liste
 | `Microsoft.AspNetCore.Authentication.JwtBearer`                      | JWT tabanlı oturum yönetimi |
 | `Microsoft.EntityFrameworkCore.SqlServer`                            | EF Core SQL Server Provider |
 | `MediatR` / `MediatR.Extensions.Microsoft.DependencyInjection`       | CQRS altyapısı              |
-| `AutoMapper` / `AutoMapper.Extensions.Microsoft.DependencyInjection` | DTO/Model dönüşümü          |
 | `FluentValidation`                                                   | Form ve API istek doğrulama |
 | `System.IdentityModel.Tokens.Jwt`                                    | JWT token işleme            |
 | `Newtonsoft.Json`                                                    | JSON işlemleri (opsiyonel)  |
